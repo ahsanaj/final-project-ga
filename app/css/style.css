@@ -1,0 +1,239 @@
+/* Importing Google Fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Montserrat:400,600|Handlee');
+
+/* Global */
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    margin: 0;
+}
+
+input,
+button {
+    font-family: inherit;
+    -webkit-appearance: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.container {
+    padding: 30px;
+    overflow: hidden;
+}
+
+
+/* Navbar */
+
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 62px;
+    background-color: #3a403e;
+}
+
+nav h3 {
+    margin: 0;
+    color: white;
+    float: left;
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 10px;
+    font-family: 'Handlee', monospace;
+    font-size: 2em;
+}
+
+nav img {
+    width: 50px;
+    float: left;
+    padding-top: 5px;
+    margin-right: 50px;
+}
+
+nav ul {
+    margin: 0;
+    height: 100%;
+}
+
+nav ul::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+nav li {
+    float: left;
+    list-style: none;
+    height: 100%;
+}
+
+nav li a {
+    display: block;
+    height: 100%;
+    padding: 20px 15px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+nav li a:hover {
+    background-color: white;
+    color: #3a403e;
+}
+
+nav h4 {
+    color: orange;
+    padding-top: 21px;
+    padding-left: 20px;
+    font-size: 1.1em;
+    font-weight: 400;
+}
+
+
+/* Header */
+
+header {
+    text-align: center;
+    height: auto;
+    padding: 50px 50px 100px 50px;
+    background: linear-gradient(rgba(35, 68, 67, 0.5), rgba(35, 68, 67, 0.4)), url(../img/bg-image.jpg) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    margin-top: 60px;
+}
+
+header h1 {
+    color: white;
+    font-weight: 400;
+    font-size: 3em;
+}
+
+header form {
+    margin: 20px auto 0 auto;
+}
+
+header input[type='text'] {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    min-height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 1.3em;
+}
+
+header input[type='submit'] {
+    font-size: 1.3em;
+    border: 0;
+    padding: 7px 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+/* Journey Planner */
+
+#journey-planner {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.journey-planner-form {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.journey-planner-form form h3 {
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #3a403e;
+}
+
+.journey-planner-form form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.journey-planner-form form input[type='text'] {
+    display: block;
+    padding: 5px 10px;
+    font-size: 1em;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.journey-planner-form form input[type='submit'] {
+    display: block;
+    padding: 5px 15px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #3a403e;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
+
+.journey-planner-form form input[type='submit']:hover {
+    background-color: white;
+    border-color: #3a403e;
+    color: #3a403e;
+}
+
+
+/* Journey Details */
+
+.journey-details {
+    margin-left: 5%;
+    float: left;
+    width: 65%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+}
+
+
+/* Footer */
+
+footer {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #3a403e;
+    color: white;
+    font-size: 1em;
+    position: relative;
+    bottom: 0;
+    padding: 1px;
+}

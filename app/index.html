@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Final Project</title>
+</head>
+
+<body>
+
+    <!--Main Page-->
+    <div id="main-page">
+        <h1>The Game Arcade</h1>
+        <section>
+            <div class="container">
+
+                <div class="start-blackjack level-circle">
+                    <span class='inner-text'>Level 1 Blackjack</span>
+                    <span class="popuptext"></span>
+                </div>
+                <div class="level-circle transparent">
+                    <div class="radius"></div>
+                </div>
+
+                <div class="start-trivia level-circle">
+                    <span class='inner-text'>Level 2 Locked</span>
+                </div>
+                <div class="level-circle transparent">
+                    <div class="radius"></div>
+                </div>
+                <div class="start-fruit level-circle">
+                    <span class='inner-text'>Level 3 Locked</span>
+
+                </div>
+                <div class="level-circle transparent">
+                    <div class="radius"></div>
+                </div>
+                <div class="champion level-circle">
+
+                </div>
+            </div>
+        </section>
+        <div class="modal">
+            <div class="modal-content">
+                <span class="modal-close">x</span>
+                <h2 class='modal-heading'></h2>
+                <p class='modal-instructions'>
+                </p>
+                <button class="btn btn-default">Play</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Blackjack Game-->
+    <div id="blackjack-game">
+        <header>
+            <span class="btn go-back-main-page">Back</span>
+            <span class="btn blackjack-instructions">Instructions</span>
+            <h1>Level 1 Blackjack Game</h1>
+            <span class="wins">0</span> games won<button id="start-btn" class="btn">Start Game</button>
+        </header>
+        <section id="computer">
+            <h3>Computer: <span class="score"></span></h3>
+            <div class="container">
+                <div class="main-container">
+                    <div class="deck-container">
+                        <img src="<%= require('./img/deck.png') %>" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="player">
+            <h3>Player: <span class="score"></span></h3>
+            <button id="stand-btn" class="btn">Stand</button>
+            <button id="hit-btn" class="btn">Hit</button>
+            <div class="container">
+                <div class="main-container">
+                    <div class="deck-container">
+                        <img src="<%= require('./img/deck.png') %>" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal modal-instructions">
+            <div class="modal-content-instructions">
+                <span class='modal-close'>x</span>
+                <h2>Blackjack Instructions</h2>
+                <span class='instructions'></span>
+            </div>
+        </div>
+        <div class="modal modal-game">
+            <div class="modal-content">
+                <h2 class='result'></h2>
+                <button id="restart-btn" class="btn btn-default">Play Again</button>
+                <button id="next-level-btn" class="btn btn-default">Go to Level 2</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Trivia Game-->
+    <div id="trivia-game">
+        <div id="trivia-main">
+            <header>
+                <span class="btn go-back-main-page">Back</span>
+
+                <h1>Trivia Game</h1>
+            </header>
+            <section class="trivia-main">
+                <div class="container">
+                    <form>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="trivia-category" name="trivia_category" class="form-control" required>
+                    <option value="" selected disabled>Select category...</option>
+                    <option value="9">General Knowledge</option>
+                    <option value="10">Entertainment: Books</option>
+                    <option value="11">Entertainment: Film</option>
+                    <option value="12">Entertainment: Music</option>
+                    <option value="13">Entertainment: Musicals &amp; Theatres</option>
+                    <option value="14">Entertainment: Television</option>
+                    <option value="15">Entertainment: Video Games</option>
+                    <option value="16">Entertainment: Board Games</option>
+                    <option value="17">Science &amp; Nature</option>
+                    <option value="18">Science: Computers</option>
+                    <option value="19">Science: Mathematics</option>
+                    <option value="20">Mythology</option>
+                    <option value="21">Sports</option>
+                    <option value="22">Geography</option>
+                    <option value="23">History</option>
+                    <option value="24">Politics</option>
+                    <option value="25">Art</option>
+                    <option value="26">Celebrities</option>
+                    <option value="27">Animals</option>
+                    <option value="28">Vehicles</option>
+                    <option value="29">Entertainment: Comics</option>
+                    <option value="30">Science: Gadgets</option>
+                    <option value="31">Entertainment: Japanese Anime &amp; Manga</option>
+                    <option value="32">Entertainment: Cartoon &amp; Animations</option>
+                </select>
+                            <em class="error"></em>
+                        </div>
+                        <div class="form-group">
+                            <label>Difficulty</label>
+                            <select id="trivia-difficulty" name="trivia_difficulty" class="form-control" required>
+			<option value="" selected disabled>Select difficulty</option>
+			<option value="easy">Easy</option>
+			<option value="medium">Medium</option>
+			<option value="hard">Hard</option>
+		</select>
+                        </div>
+                        <button type="submit" class="btn btn-trivia">Start</button>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+        <div id="trivia-questions">
+
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+                <h2 class='result'></h2>
+                <button id="restart-btn" class="btn btn-default">Play Again</button>
+                <button id="next-round-btn" class="btn btn-default">Next round</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
