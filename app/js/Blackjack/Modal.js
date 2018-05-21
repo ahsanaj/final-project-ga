@@ -30,6 +30,22 @@ EVTBlackjack.on("blackjackLevelCompleted", function(message) {
   showModal();
 });
 
+function init() {
+  blackjack_game = document.querySelector("#blackjack-game");
+
+  modal_game = blackjack_game.querySelector(".modal-game");
+  modal_game_content = modal_game.querySelector(".modal-content");
+  modal_game_result = modal_game.querySelector(".result");
+  modal_game_close = modal_game.querySelector(".modal-close");
+
+  modal_game_close.addEventListener("click", hideModal);
+
+  modal_instructions = blackjack_game.querySelector(
+    ".modal.modal-instructions"
+  );
+  modal_instructions_result = modal_instructions.querySelector(".instructions");
+}
+
 EVTBlackjack.on("blackjackInstructionsButtonClicked", function(message) {
   modal_instructions_result.innerHTML = message;
   showInstructionsModal();
@@ -42,13 +58,12 @@ EVTBlackjack.on("gameFinished", function(message) {
   showModal();
 });
 
-const blackjack_game = document.querySelector("#blackjack-game");
-const modal_game = blackjack_game.querySelector(".modal-game");
-const modal_instructions = blackjack_game.querySelector(
-  ".modal.modal-instructions"
-);
-const modal_game_content = blackjack_game.querySelector(".modal-content");
-const modal_game_result = blackjack_game.querySelector(".result");
-const modal_instructions_result = modal_instructions.querySelector(
-  ".instructions"
-);
+EVTBlackjack.on("init", init);
+
+let blackjack_game;
+let modal_game;
+let modal_game_content;
+let modal_game_result;
+let modal_game_close;
+let modal_instructions;
+let modal_instructions_result;

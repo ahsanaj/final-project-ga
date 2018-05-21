@@ -1,5 +1,8 @@
+function saveGameRequest(wins) {
+  GAME_DATA.blackjack_wins = wins;
+  EVTGlobal.emit("saveGame");
+}
 function restartGame() {
-  //shuffleDeck();
   computer_score = 0;
   computer_container.querySelector(".score").innerText = "";
   const computer_cards = Array.from(
@@ -20,16 +23,13 @@ function restartGame() {
       .querySelector(".main-container")
       .removeChild(player_cards[i]);
   }
-  //startGame();
 }
 
 function showComputerCards() {
-  //console.log("showcomputercards");
   const hiddenCardImg = computer_container.querySelector(".hidden");
-  //debugger;
   hiddenCardImg.style.opacity = 0;
   setTimeout(function() {
-    const src = require(`../../img/cards/${hiddenImgCode}.png`);
+    const src = require(`../../img/cards/${hidden_imgcode}.png`);
     hiddenCardImg.src = src;
     hiddenCardImg.style.opacity = 1;
     hiddenCardImg.addEventListener("transitionend", function() {});
@@ -45,12 +45,12 @@ function checkFinalScore() {
   if (computer_score < 17) {
     EVTBlackjack.emit("computerDrawCardAgain");
   } else if (computer_score > 21) {
-    noOfWins += 1;
+    wins += 1;
     setTimeout(function() {
       EVTBlackjack.emit("gameFinished", "You have won the game.");
     }, 1000);
   } else if (computer_score < player_score) {
-    noOfWins += 1;
+    wins += 1;
     setTimeout(function() {
       EVTBlackjack.emit("gameFinished", "You have won the game.");
     }, 1000);
@@ -63,9 +63,8 @@ function checkFinalScore() {
       EVTBlackjack.emit("gameFinished", "The game has ended in a draw");
     }, 1000);
   }
-  span_wins.innerText = noOfWins;
-  gameData = { noOfWins, currentLevel };
-  EVTBlackjack.emit("saveGame", gameData);
+  EVTBlackjack.emit("setBlackJackWinsText");
+  saveGameRequest(wins);
 }
 
 function checkPlayerScore() {
@@ -249,7 +248,7 @@ function displayCards(cardData, container) {
       const img = document.createElement("img");
 
       if (container.id === "computer" && i === 1) {
-        hiddenImgCode = card.code;
+        hidden_imgcode = card.code;
         const src = require(`../../img/deck.png`);
         img.src = src;
         img.classList.add("hidden");
@@ -271,6 +270,10 @@ function drawCards(cards, container) {
   });
 }
 
+function init() {
+  wins = GAME_DATA.blackjack_wins;
+}
+
 EVTBlackjack.on("restartButtonClicked", restartGame);
 
 EVTBlackjack.on("standButtonClicked", showComputerCards);
@@ -286,11 +289,9 @@ EVTBlackjack.on("computerDrawCardFetched", function(cards) {
 
 EVTBlackjack.on("playerInitialCardsLoaded", function() {
   if (player_score === 21) {
-    noOfWins += 1;
-    span_wins.innerText = noOfWins;
+    wins += 1;
+    saveGameRequest(wins);
     EVTBlackjack.emit("gameFinished", "Blackjack! nice game");
-    gameData = { noOfWins, currentLevel };
-    EVTBlackjack.emit("saveGame", gameData);
   }
 });
 
@@ -311,22 +312,15 @@ EVTBlackjack.on("computerInitialCardsFetched", function(cards) {
   drawCards(cards, computer_container);
 });
 
-EVTBlackjack.on("gameDataFetched", function(gameData) {
-  if (gameData) {
-    span_wins.innerText = gameData.noOfWins;
-    noOfWins = gameData.noOfWins;
-  }
-});
+EVTBlackjack.on("init", init);
 
 let player_draw_ace = false;
 let computer_draw_ace = false;
 let player_score = 0;
 let computer_score = 0;
-let hiddenImgCode = "";
-let noOfWins = 0;
-let totalWinsNeeded = 3;
+let hidden_imgcode = "";
+let wins = 0;
+let total_wins_needed = 3;
 let currentLevel = 1;
 let player_container = document.querySelector("#player");
 let computer_container = document.querySelector("#computer");
-let span_wins = document.querySelector(".wins");
-let gameData = {};
