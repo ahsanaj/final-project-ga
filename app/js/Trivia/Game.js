@@ -5,13 +5,13 @@ function triviaGameContainerClicked(event) {
   const next_question_container = trivia_game.querySelector(
     `.trivia[data-value='${current_question + 1}']`
   );
-  console.log(event.target);
 
+  // Exit button clicked
   if (event.target.getAttribute("class") === "btn exit-btn") {
     current_question_container.style.left = "100%";
     trivia_main.style.left = "0";
     setTimeout(() => {
-      trivia_game.innerHTML = "";
+      trivia_questions.innerHTML = "";
     }, 1000);
     total_score = 0;
     current_question = 0;

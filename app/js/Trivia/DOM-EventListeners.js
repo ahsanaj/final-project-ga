@@ -1,9 +1,3 @@
-function setExitBtnClickEventListener() {
-  exit_btn.addEventListener("click", function(event) {
-    EVTTrivia.emit("exitButtonClicked");
-    trivia_game.style.left = "0";
-  });
-}
 function setBackBtnClickEventListener() {
   back_btn.addEventListener("click", function(event) {
     trivia_game.style.left = "100%";
@@ -70,5 +64,4 @@ let trivia_game,
   submit_btn,
   error,
   back_btn,
-  exit_btn,
   main_page;

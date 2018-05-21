@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const config = {
   entry: {
@@ -15,14 +17,40 @@ const config = {
         exclude: /node_modules/,
         loader: ["babel-loader"]
       },
+
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: ["style-loader", "css-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ["url-loader?limit=10000", "img-loader"]
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          "file-loader",
+          {
+            loader: "image-webpack-loader",
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false
+              },
+              pngquant: {
+                quality: "65-90",
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
       }
     ]
   },
@@ -34,6 +62,12 @@ const config = {
       filename: "./index.html",
       template: "./app/index.html",
       chunks: ["index"]
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css"
     })
   ]
 };

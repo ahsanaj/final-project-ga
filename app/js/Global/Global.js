@@ -4,7 +4,7 @@ const GAME_DATA = {
   fruit_score: 0,
   current_lavel: 0,
   level2_locked: false,
-  level3_locked: true
+  level3_locked: false
 };
 
 window.GAME_DATA = GAME_DATA;

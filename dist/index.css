@@ -1,6 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600|Montserrat:400,600|Kavivanar);
 /* Importing Google Fonts */
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Montserrat:400,600|Kavivanar');
 
 /* Global CSS */
 
@@ -200,7 +199,7 @@ h6 {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/bg-image.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/f24f68ccbb286e54bf2ba3b57f0856de.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     overflow: scroll;
@@ -298,7 +297,7 @@ h6 {
 }
 
 #main-page .champion {
-    background: url(../img/champion.png) no-repeat;
+    background: url(/bc169b3bcaaea85180855a67ce1163fe.png) no-repeat;
     background-size: cover;
     background-color: transparent !important;
     background-size: 120px;
@@ -493,7 +492,7 @@ section#player {
 
 #trivia-main form select {
     display: block;
-    background-image: url('../img/dropdown-icon.png');
+    background-image: url(/6c2c2a07dcb7f777fd1be137a8f8889a.png);
     background-repeat: no-repeat;
     background-position: center right;
     background-size: 40px;
