@@ -6,7 +6,7 @@ const config = {
   output: {
     path: __dirname + "/dist",
     publicPath: "/",
-    filename: "dist/[name].bundle.js"
+    filename: "[name].bundle.js"
   },
   module: {
     rules: [

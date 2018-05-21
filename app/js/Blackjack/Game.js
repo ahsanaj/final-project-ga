@@ -32,12 +32,11 @@ function showComputerCards() {
     const src = require(`../../img/cards/${hiddenImgCode}.png`);
     hiddenCardImg.src = src;
     hiddenCardImg.style.opacity = 1;
-    hiddenCardImg.addEventListener("transitionend", function() {
-      const score_span = computer_container.querySelector(".score");
-      score_span.innerText = computer_score;
-      checkFinalScore();
-    });
-  }, 1000);
+    hiddenCardImg.addEventListener("transitionend", function() {});
+    const score_span = computer_container.querySelector(".score");
+    score_span.innerText = computer_score;
+    checkFinalScore();
+  }, 300);
 }
 
 function checkFinalScore() {
@@ -47,14 +46,22 @@ function checkFinalScore() {
     EVTBlackjack.emit("computerDrawCardAgain");
   } else if (computer_score > 21) {
     noOfWins += 1;
-    EVTBlackjack.emit("gameFinished", "You have won the game.");
+    setTimeout(function() {
+      EVTBlackjack.emit("gameFinished", "You have won the game.");
+    }, 1000);
   } else if (computer_score < player_score) {
     noOfWins += 1;
-    EVTBlackjack.emit("gameFinished", "You have won the game.");
+    setTimeout(function() {
+      EVTBlackjack.emit("gameFinished", "You have won the game.");
+    }, 1000);
   } else if (computer_score > player_score) {
-    EVTBlackjack.emit("gameFinished", "You have lost the game.");
+    setTimeout(function() {
+      EVTBlackjack.emit("gameFinished", "You have lost the game.");
+    }, 1000);
   } else if (computer_score === player_score) {
-    EVTBlackjack.emit("gameFinished", "The game has ended in a draw");
+    setTimeout(function() {
+      EVTBlackjack.emit("gameFinished", "The game has ended in a draw");
+    }, 1000);
   }
   span_wins.innerText = noOfWins;
   gameData = { noOfWins, currentLevel };
@@ -68,6 +75,8 @@ function checkPlayerScore() {
 }
 
 function calculateScore(value, container) {
+  console.log("playerace", player_draw_ace);
+  console.log("computerace", computer_draw_ace);
   if (value === "JACK" || value === "KING" || value === "QUEEN") {
     value = 10;
   } else if (value === "ACE") {
@@ -83,15 +92,15 @@ function calculateScore(value, container) {
     player_score = Number(player_score) + Number(value);
     if (player_score > 21 && player_draw_ace === true) {
       player_score = player_score - 10;
-      player_draw_ace = false;
     }
+    player_draw_ace = false;
     score_span.innerText = player_score;
   } else if (container.id === "computer") {
     computer_score = Number(computer_score) + Number(value);
     if (computer_score > 21 && computer_draw_ace === true) {
       computer_score = computer_score - 10;
-      computer_draw_ace = false;
     }
+    computer_draw_ace = false;
   }
 }
 
@@ -111,26 +120,43 @@ function transitionEndDrawCard(card, container) {
 }
 
 function animateDrawCard(card, left, container) {
-  setTimeout(function() {
-    card.style.left = `${left}px`;
-    card.style.transform = "rotate(0deg)";
+  let value = card.getAttribute("data-value");
+  console.log(value);
+  calculateScore(value, container);
+  card.style.left = `${left}px`;
+  card.style.transform = "rotate(0deg)";
+  document.querySelector("#stand-btn").style.opacity = "1";
+  document.querySelector("#stand-btn").style.pointerEvents = "auto";
+  document.querySelector("#hit-btn").style.opacity = "1";
+  document.querySelector("#hit-btn").style.pointerEvents = "auto";
+  if (container.id === "computer") {
+    checkFinalScore();
+    //console.log("function called");
+  } else if (container.id === "player") {
+    checkPlayerScore();
+  }
+  // setTimeout(function() {
+  //   card.style.left = `${left}px`;
+  //   card.style.transform = "rotate(0deg)";
 
-    card.removeEventListener("transitionend", function(event) {
-      if (event.propertyName === "left") {
-        transitionEndDrawCard(card, container);
-      }
-    });
-    card.addEventListener("transitionend", function(event) {
-      if (event.propertyName === "left") {
-        transitionEndDrawCard(card, container);
-      }
-    });
-  }, 50);
+  //   card.removeEventListener("transitionend", function(event) {
+  //     if (event.propertyName === "left") {
+  //       transitionEndDrawCard(card, container);
+  //     }
+  //   });
+  //   card.addEventListener("transitionend", function(event) {
+  //     if (event.propertyName === "left") {
+  //       transitionEndDrawCard(card, container);
+  //     }
+  //   });
+  // }, 2000);
 }
 
 function setAnimationDrawCard(card, container, lastCardLeft) {
   let left = lastCardLeft + 110;
-  animateDrawCard(card, left, container);
+  setTimeout(function() {
+    animateDrawCard(card, left, container);
+  }, 200);
 }
 
 function transitionEndInitialCards(cards, index, left, container) {
@@ -151,7 +177,20 @@ function transitionEndInitialCards(cards, index, left, container) {
 }
 
 function animateInitialCards(cards, index, left, container) {
-  setTimeout(function() {
+  cards[index].style.left = `${left}px`;
+  cards[index].style.transform = "rotate(0deg)";
+  //left = left + 110;
+  let value = cards[index].getAttribute("data-value");
+  calculateScore(value, container);
+  if (index === cards.length - 1) {
+    if (container.id === "player") {
+      EVTBlackjack.emit("playerInitialCardsLoaded");
+    }
+    if (container.id === "computer") {
+      EVTBlackjack.emit("computerInitialCardsLoaded");
+    }
+  }
+  /*setTimeout(function() {
     if (index === 0) {
       cards[index].style.left = `${left}px`;
       cards[index].style.transform = "rotate(0deg)";
@@ -165,14 +204,30 @@ function animateInitialCards(cards, index, left, container) {
         });
       }
     }
-  }, 50);
+  }, 2000);*/
 }
 
 function setAnimationInitialCards(cards, container) {
   let left = 200;
-  for (let i = 0; i < cards.length; i++) {
+  let i = 0;
+
+  setTimeout(function() {
+    console.log(i);
     animateInitialCards(cards, i, left, container);
-  }
+    left = left + 110;
+    i++;
+  }, 200);
+
+  let interval = setInterval(function() {
+    console.log(i);
+    if (i < cards.length) {
+      animateInitialCards(cards, i, left, container);
+      left = left + 110;
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 400);
 }
 
 function displayCards(cardData, container) {
@@ -221,14 +276,12 @@ EVTBlackjack.on("restartButtonClicked", restartGame);
 EVTBlackjack.on("standButtonClicked", showComputerCards);
 
 EVTBlackjack.on("computerDrawCardFetched", function(cards) {
-  if (computer_score <= 16) {
-    displayCards(cards, computer_container).then(function(cards) {
-      let lastCard = cards[cards.length - 1];
-      let secondlastCard = cards[cards.length - 2];
-      let secondlastCardLeft = parseInt(secondlastCard.style.left);
-      setAnimationDrawCard(lastCard, computer_container, secondlastCardLeft);
-    });
-  }
+  displayCards(cards, computer_container).then(function(cards) {
+    let lastCard = cards[cards.length - 1];
+    let secondlastCard = cards[cards.length - 2];
+    let secondlastCardLeft = parseInt(secondlastCard.style.left);
+    setAnimationDrawCard(lastCard, computer_container, secondlastCardLeft);
+  });
 });
 
 EVTBlackjack.on("playerInitialCardsLoaded", function() {

@@ -52,5 +52,3 @@ const modal_game_result = blackjack_game.querySelector(".result");
 const modal_instructions_result = modal_instructions.querySelector(
   ".instructions"
 );
-
-module.export = { showModal, hideModal };

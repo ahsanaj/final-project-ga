@@ -6,7 +6,6 @@ function fetchCards(deck_id, noOfCards) {
   return fetch(baseURL, httpOptions).then(_turnDataIntoJSON);
 }
 function shuffleDeck(deck_id) {
-  //const baseURL = `https://deckofcardsapi.com/api/deck/${deck_id}/shuffle/?cards=AH,AS,AD,AC,3H,3S,3D,3C,4H,4S,4D,4C`;
   const baseURL = `https://deckofcardsapi.com/api/deck/${deck_id}/shuffle/`;
   return fetch(baseURL, httpOptions).then(_turnDataIntoJSON);
 }
@@ -24,6 +23,7 @@ EVTBlackjack.on("restartButtonClicked", function() {
 });
 
 EVTBlackjack.on("computerDrawCardAgain", function() {
+  console.log("drawing");
   fetchCards(deck_id, 1).then(function(cards) {
     EVTBlackjack.emit("computerDrawCardFetched", cards);
   });
