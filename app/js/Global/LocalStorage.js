@@ -11,6 +11,8 @@ function getLocalStorageGameData() {
 function init() {
   if (!getLocalStorageGameData()) {
     saveGame();
+  } else {
+    loadGame();
   }
 }
 EVTGlobal.on("saveGame", saveGame);

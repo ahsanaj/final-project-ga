@@ -1,10 +1,22 @@
 const GAME_DATA = {
-  blackjack_wins: 0,
-  trivia_answers: 0,
-  fruit_score: 0,
-  current_lavel: 0,
-  level2_locked: false,
-  level3_locked: false
+    user_details: {
+        name: "",
+        email: "",
+        current_level: 0,
+        level2_locked: true,
+        level3_locked: true
+    },
+    blackjack: {
+        wins: 0,
+    },
+    trivia: {
+        score: 0,
+        current_question: 0,
+        round_completed: false
+    },
+    fruit: {
+        score: 0,
+    }
 };
 
 window.GAME_DATA = GAME_DATA;

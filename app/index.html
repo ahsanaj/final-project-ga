@@ -13,6 +13,7 @@
     <!--Main Page-->
     <div id="main-page">
         <h1>The Game Arcade</h1>
+        <h2 class='user-welcome'></h2>
         <section>
             <div class="container">
 
@@ -42,13 +43,39 @@
                 </div>
             </div>
         </section>
-        <div class="modal">
+        <div class="modal modal-play">
             <div class="modal-content">
                 <span class="modal-close">x</span>
                 <h2 class='modal-heading'></h2>
-                <p class='modal-instructions'>
+                <p class='modal-body'>
                 </p>
                 <button class="btn btn-default">Play</button>
+            </div>
+        </div>
+        <div class="modal modal-instructions">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class='instructions'>
+                        <h2 class='modal-heading'>Instructions</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi perferendis adipisci recusandae dignissimos eligendi rem reiciendis blanditiis, accusantium iusto ab neque similique culpa distinctio nostrum. Et voluptatibus inventore
+                            animi quibusdam.</p>
+                        <button class='btn btn-form' type="button">Next</button>
+                    </div>
+                    <div class='form'>
+                        <h2 class='modal-heading'>Your details</h2>
+                        <form>
+                            <div class='form-group'>
+                                <label>Name</label>
+                                <input type='text' id="name" required>
+                            </div>
+                            <div class='form-group'>
+                                <label>Email</label>
+                                <input type='email' id='email' required>
+                            </div>
+                            <button class='btn' type='submit'>Enter</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
