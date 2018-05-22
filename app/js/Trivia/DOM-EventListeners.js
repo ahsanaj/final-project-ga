@@ -1,8 +1,6 @@
-function setBackBtnClickEventListener() {
-  back_btn.addEventListener("click", function(event) {
-    trivia_game.style.left = "100%";
-    main_page.style.left = "0";
-  });
+function backButtonClicked() {
+  trivia_game.style.left = "100%";
+  main_page.style.left = "0";
 }
 function playTriviaAgainClicked() {
   category_select.value = "";
@@ -18,22 +16,18 @@ function showErrorMessage() {
   submit_btn.innerText = "Start";
 }
 
-function setTriviaGameClickEventListener() {
-  trivia_game.addEventListener("click", function(event) {
-    EVTTrivia.emit("triviaGameContainerClicked", event);
-  });
+function setTriviaGameClickEventListener(event) {
+  EVTTrivia.emit("triviaGameContainerClicked", event);
 }
-function setFormSubmitEventListener() {
-  form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    submit_btn.style.opacity = "0.7";
-    submit_btn.innerText = "Starting...";
-    const params = {
-      category: category_select.value,
-      difficulty: difficulty_select.value
-    };
-    EVTTrivia.emit("startButtonClicked", params);
-  });
+function formSubmit(event) {
+  event.preventDefault();
+  submit_btn.style.opacity = "0.7";
+  submit_btn.innerText = "Starting...";
+  const params = {
+    category: category_select.value,
+    difficulty: difficulty_select.value
+  };
+  EVTTrivia.emit("startButtonClicked", params);
 }
 
 function init() {
@@ -46,9 +40,9 @@ function init() {
   back_btn = trivia_game.querySelector(".go-back-main-page");
   main_page = document.querySelector("#main-page");
 
-  setFormSubmitEventListener();
-  setTriviaGameClickEventListener();
-  setBackBtnClickEventListener();
+  form.addEventListener("click", formSubmit);
+  trivia_game.addEventListener("click", setTriviaGameClickEventListener);
+  back_btn.addEventListener("click", backButtonClicked);
 }
 
 EVTTrivia.on("playTriviaAgainClicked", playTriviaAgainClicked);

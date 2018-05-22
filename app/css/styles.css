@@ -326,6 +326,11 @@ h6 {
     overflow-x: hidden;
 }
 
+#main-page .play-blackjack-btn,
+#main-page .play-trivia-btn {
+    display: none;
+}
+
 #main-page .modal-instructions .modal-content {
     padding: 0;
 }
@@ -499,6 +504,7 @@ section#player {
 
 #blackjack-game #next-level-btn {
     display: none;
+    margin-left: 10px;
 }
 
 #blackjack-game .modal-content {

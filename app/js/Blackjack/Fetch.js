@@ -53,6 +53,7 @@ EVTBlackjack.on("getDeckID", function(ID) {
 
 EVTBlackjack.on("deckDoesntExist", function() {
   fetchDeck().then(data => {
+    GAME_DATA.blackjack.deck_id = data.deck_id;
     EVTBlackjack.emit("deckFetched", data);
   });
 });

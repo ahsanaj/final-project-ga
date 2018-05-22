@@ -1,18 +1,19 @@
 function getDeckIDLocalStorage() {
-  return localStorage.getItem("deck_id");
+  return JSON.parse(localStorage.getItem("game_data")).blackjack.deck_id;
 }
 
 function setDeckIDLocalStorage(deck_id) {
-  localStorage.setItem("deck_id", deck_id);
+  localStorage.setItem("game_data", JSON.stringify(GAME_DATA));
 }
 
-deck_id = getDeckIDLocalStorage();
-
-if (!getDeckIDLocalStorage()) {
-  console.log("not");
-  EVTBlackjack.emit("deckDoesntExist");
-} else {
-  EVTBlackjack.emit("getDeckID", deck_id);
+function init() {
+  deck_id = getDeckIDLocalStorage();
+  //console.log(deck_id);
+  if (getDeckIDLocalStorage() === null) {
+    EVTBlackjack.emit("deckDoesntExist");
+  } else {
+    EVTBlackjack.emit("getDeckID", deck_id);
+  }
 }
 
 EVTBlackjack.on("deckFetched", function(data) {
@@ -20,5 +21,7 @@ EVTBlackjack.on("deckFetched", function(data) {
   deck_id = getDeckIDLocalStorage();
   EVTBlackjack.emit("getDeckID", deck_id);
 });
+
+EVTBlackjack.on("init", init);
 
 let deck_id;

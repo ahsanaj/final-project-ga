@@ -1,6 +1,6 @@
 function setBlackJackWinsText() {
-  let message = GAME_DATA.blackjack_wins > 1 ? "games" : "game";
-  span_wins.innerText = GAME_DATA.blackjack_wins + " " + message;
+  let message = GAME_DATA.blackjack.wins > 1 ? "games" : "game";
+  span_wins.innerText = GAME_DATA.blackjack.wins + " " + message;
 }
 function startButtonClicked(event) {
   disableButton(start_btn);
@@ -17,16 +17,14 @@ function standButtonClicked(event) {
   disableButton(hit_btn);
   EVTBlackjack.emit("standButtonClicked");
 }
-function nextRoundButtonClicked(event) {
-  EVTBlackjack.emit("nextRoundButtonClicked");
+function nextRoundButtonClicked() {
+  blackjack_game.style.left = "-100%";
+  trivia_game.style.left = "0";
 }
 function restartButtonClicked(event) {
   disableButton(stand_btn);
   disableButton(hit_btn);
   EVTBlackjack.emit("restartButtonClicked");
-}
-function showNextLevelButton() {
-  next_level_btn.style.display = "inline-block";
 }
 function nextLevelButtonClicked(event) {
   blackjack_game.style.left = "-100%;";
@@ -93,8 +91,6 @@ function init() {
   setBlackJackWinsText();
 }
 EVTBlackjack.on("setBlackJackWinsText", setBlackJackWinsText);
-
-EVTBlackjack.on("blackjackLevelCompleted", showNextLevelButton);
 
 EVTBlackjack.on("playerInitialCardsLoaded", function() {
   enableButton(stand_btn);

@@ -1,3 +1,7 @@
+function level2Unlocked() {
+  const next_level_btn = modal_game.querySelector("#next-level-btn");
+  next_level_btn.style.display = "inline-block";
+}
 function showModal() {
   modal_game.style.display = "block";
   setTimeout(function() {
@@ -45,6 +49,8 @@ function init() {
   );
   modal_instructions_result = modal_instructions.querySelector(".instructions");
 }
+
+EVTBlackjack.on("level2Unlocked", level2Unlocked);
 
 EVTBlackjack.on("blackjackInstructionsButtonClicked", function(message) {
   modal_instructions_result.innerHTML = message;

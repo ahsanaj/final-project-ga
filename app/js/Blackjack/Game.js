@@ -1,5 +1,13 @@
-function saveGameRequest(wins) {
-  GAME_DATA.blackjack_wins = wins;
+function gameFinished() {
+  EVTBlackjack.emit("setBlackJackWinsText");
+  if (
+    GAME_DATA.blackjack.wins === 3 &&
+    GAME_DATA.user_details.level2_locked === true
+  ) {
+    GAME_DATA.user_details.level2_locked = false;
+    EVTMainPage.emit("level2Unlocked");
+    EVTBlackjack.emit("level2Unlocked");
+  }
   EVTGlobal.emit("saveGame");
 }
 function restartGame() {
@@ -46,11 +54,13 @@ function checkFinalScore() {
     EVTBlackjack.emit("computerDrawCardAgain");
   } else if (computer_score > 21) {
     wins += 1;
+    GAME_DATA.blackjack.wins = wins;
     setTimeout(function() {
       EVTBlackjack.emit("gameFinished", "You have won the game.");
     }, 1000);
   } else if (computer_score < player_score) {
     wins += 1;
+    GAME_DATA.blackjack.wins = wins;
     setTimeout(function() {
       EVTBlackjack.emit("gameFinished", "You have won the game.");
     }, 1000);
@@ -63,8 +73,6 @@ function checkFinalScore() {
       EVTBlackjack.emit("gameFinished", "The game has ended in a draw");
     }, 1000);
   }
-  EVTBlackjack.emit("setBlackJackWinsText");
-  saveGameRequest(wins);
 }
 
 function checkPlayerScore() {
@@ -271,8 +279,10 @@ function drawCards(cards, container) {
 }
 
 function init() {
-  wins = GAME_DATA.blackjack_wins;
+  wins = GAME_DATA.blackjack.wins;
 }
+
+EVTBlackjack.on("gameFinished", gameFinished);
 
 EVTBlackjack.on("restartButtonClicked", restartGame);
 
@@ -290,7 +300,7 @@ EVTBlackjack.on("computerDrawCardFetched", function(cards) {
 EVTBlackjack.on("playerInitialCardsLoaded", function() {
   if (player_score === 21) {
     wins += 1;
-    saveGameRequest(wins);
+    GAME_DATA.blackjack.wins = wins;
     EVTBlackjack.emit("gameFinished", "Blackjack! nice game");
   }
 });
@@ -321,6 +331,6 @@ let computer_score = 0;
 let hidden_imgcode = "";
 let wins = 0;
 let total_wins_needed = 3;
-let currentLevel = 1;
-let player_container = document.querySelector("#player");
-let computer_container = document.querySelector("#computer");
+let blackjack_game = document.querySelector("#blackjack-game");
+let player_container = blackjack_game.querySelector("#player");
+let computer_container = blackjack_game.querySelector("#computer");
