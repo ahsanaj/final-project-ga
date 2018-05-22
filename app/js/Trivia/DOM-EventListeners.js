@@ -4,6 +4,7 @@ function exitButtonClicked() {
 }
 function backButtonClicked() {
   trivia_game.style.left = "100%";
+  blackjack_game.style.left = "100%";
   main_page.style.left = "0";
 }
 function playTriviaAgainClicked() {
@@ -35,6 +36,7 @@ function triviaFormSubmit(event) {
 }
 
 function init() {
+  blackjack_game = document.querySelector("#blackjack-game");
   trivia_game = document.querySelector("#trivia-game");
   form = trivia_game.querySelector("form");
   category_select = form.querySelector("#trivia-category");
@@ -57,7 +59,8 @@ EVTTrivia.on("fetchFailed", showErrorMessage);
 
 EVTTrivia.on("init", init);
 
-let trivia_game,
+let blackjack_game,
+  trivia_game,
   form,
   category_select,
   difficulty_select,

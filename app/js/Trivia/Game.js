@@ -1,3 +1,27 @@
+function nextLevelButtonClicked() {
+  setTimeout(() => {
+    trivia_questions.innerHTML = "";
+  }, 1000);
+
+  trivia_game.style.left = "-100%";
+  balloon_game.style.left = "0";
+  total_score = 0;
+  current_question = 0;
+  EVTBalloon.emit("startGame");
+}
+function checkScore() {
+  if (total_score >= 6 && GAME_DATA.user_details.level3_locked === true) {
+    trivia_score_heading.innerText = `Well done, you got ${total_score} out of 10 correct. Level 3 is now unlocked`;
+    GAME_DATA.user_details.level3_locked = false;
+    EVTGlobal.emit("saveGame");
+    EVTMainPage.emit("level3Unlocked");
+    EVTTrivia.emit("level3Unlocked");
+    play_next_level_btn.style.display = "inline-block";
+  } else {
+    trivia_score_heading.innerText = `You got ${total_score} out of 10 correct.`;
+    play_next_level_btn.style.display = "none";
+  }
+}
 function answerSelected(event, current) {
   clearInterval(interval);
   const selectedAnswer = event.target.innerText;
@@ -12,10 +36,6 @@ function answerSelected(event, current) {
 
   if (event.target.innerText === questionsList[questionIndex].correct_answer) {
     total_score += 1;
-    const trivia_score = document.querySelector(".trivia-score");
-    trivia_score.innerHTML = `You got ${total_score} out of ${
-      questionsList.length
-    } correct`;
   }
   event.target.style.backgroundColor = "#ff7979";
   event.target.style.color = "#b10000";
@@ -47,9 +67,11 @@ function nextButtonClicked(current, next) {
   current.style.left = "-100%";
   next.style.left = "0";
   current_question = current_question + 1;
-
-  startTimer();
-
+  if (current_question < questionsList.length) {
+    startTimer();
+  } else {
+    checkScore();
+  }
   const allButtons = Array.from(current.querySelectorAll(".btn-trivia-game"));
   for (let i = 0; i < allButtons.length; i++) {
     allButtons[i].style.pointerEvents = "auto";
@@ -220,17 +242,20 @@ function displayQuestions(questions) {
                     <div class="container">
                     <span class="btn exit-btn">Exit</span>
                         <div class="question">
-                        <h1>Well done, round has completed</h1>
-                            <h2 class="trivia-score"> Your got 0 out of ${
-                              questions.length
-                            } correct.</h2>
+                        <h1>Round completed</h1>
+                            <h2 class="trivia-score"></h2>
                         </div>
                         <button class="btn btn-default" rel="js-play-trivia-again">Play Again</button>
+                        <button class="btn btn-default hidden-btn" rel="js-play-next-level">Go to Level 3</button>
                     </div>
                 </section>`;
 
     trivia_questions.innerHTML += lastScreenMarkup;
-
+    play_next_level_btn = trivia_game.querySelector(
+      "button[rel='js-play-next-level']"
+    );
+    play_next_level_btn.addEventListener("click", nextLevelButtonClicked);
+    trivia_score_heading = trivia_game.querySelector(".trivia-score");
     // After all the questions are displayed
     if (i === questions.length - 1) {
       displayFirstQuestion();
@@ -238,44 +263,11 @@ function displayQuestions(questions) {
   }
 }
 
-// form.addEventListener("submit", function(event) {
-//   event.preventDefault();
-//   form.querySelector("button[type='submit'").style.opacity = "0.7";
-//   form.querySelector("button[type='submit'").innerText = "Starting...";
-//   const category = document.querySelector("#trivia-category");
-//   const difficulty = document.querySelector("#trivia-difficulty");
-//   const params = { category: category.value, difficulty: difficulty.value };
-
-//   fetchQuestions(params).then(function(data) {
-//     console.log(data);
-//     if (data.results.length > 0) {
-//       questionsList = data.results;
-//       displayQuestions(questionsList);
-//       trivia_main.style.left = "-100%";
-//       current_question = 0;
-//       setTimeout(function() {
-//         document.querySelector(
-//           `.trivia[data-value='${current_question}']`
-//         ).style.left =
-//           "0";
-//       }, 50);
-
-//       startTimer();
-//     } else {
-//       const error = document.querySelector("em.error");
-//       error.style.display = "block";
-//       error.innerText =
-//         "This category is currently unavailable, please choose a different category";
-//       form.querySelector("button[type='submit'").style.opacity = "1";
-//       form.querySelector("button[type='submit'").innerText = "Start";
-//     }
-//   });
-// });
-
 function init() {
   trivia_game = document.querySelector("#trivia-game");
   trivia_main = trivia_game.querySelector("#trivia-main");
   trivia_questions = trivia_game.querySelector("#trivia-questions");
+  balloon_game = document.querySelector("#balloon-game");
 }
 
 EVTTrivia.on("triviaGameContainerClicked", triviaGameContainerClicked);
@@ -292,4 +284,7 @@ let trivia_game,
   questionsList,
   questionTimer = 15, // 30 seconds
   current_question = 0,
-  total_score = 0;
+  total_score = 0,
+  trivia_score_heading,
+  play_next_level_btn,
+  balloon_game;

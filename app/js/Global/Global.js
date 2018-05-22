@@ -4,7 +4,8 @@ const GAME_DATA = {
     email: "",
     current_level: 0,
     level2_locked: true,
-    level3_locked: true
+    level3_locked: true,
+    game_completed: false
   },
   blackjack: {
     wins: 0,

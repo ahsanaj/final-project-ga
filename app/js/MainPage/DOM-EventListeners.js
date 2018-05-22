@@ -1,3 +1,9 @@
+function level3Unlocked() {
+  const level3Div = main_page.querySelector(".start-balloon");
+  const level3Span = main_page.querySelector(".start-balloon span");
+  level3Div.style.opacity = "1";
+  level3Span.innerText = "Level 3 Balloons";
+}
 function playBlackJack() {
   EVTMainPage.emit("hideModal");
   main_page.style.left = "-100%";
@@ -12,6 +18,14 @@ function playTrivia() {
   GAME_DATA.user_details.current_level = 2;
   EVTGlobal.emit("saveGame");
 }
+function playBalloon() {
+  EVTMainPage.emit("hideModal");
+  main_page.style.left = "-100%";
+  balloon_game.style.left = "0";
+  GAME_DATA.user_details.current_level = 3;
+  EVTGlobal.emit("saveGame");
+  EVTBalloon.emit("startGame");
+}
 function level2Unlocked() {
   const level2Div = main_page.querySelector(".start-trivia");
   const level2Span = main_page.querySelector(".start-trivia span");
@@ -19,14 +33,27 @@ function level2Unlocked() {
   level2Div.style.opacity = "1";
   level2Span.innerText = "Level 2 Trivia";
 }
-function fruitShootingLevel3Clicked() {
+function balloonLevel3Clicked() {
+  modal_playblackjack_btn.style.display = "none";
+  modal_playtrivia_btn.style.display = "none";
+  modal_playballoon_btn.style.display = "none";
+
   modal_play_heading.innerText = `Level 3`;
-  modal_play_body.innerHTML = `This level is still being developed. <br><br>Please check again later.`;
+
+  if (!GAME_DATA.user_details.level3_locked) {
+    modal_play_body.innerHTML = "";
+    modal_playballoon_btn.style.display = "inline-block";
+  } else {
+    modal_play_body.innerHTML = `This level is locked. <br><br>Answer 6 questions correct in Trivia to unlock this level.`;
+    modal_playballoon_btn.style.display = "none";
+  }
   EVTMainPage.emit("showModal");
 }
 function triviaLevel2Clicked() {
   modal_playblackjack_btn.style.display = "none";
   modal_playtrivia_btn.style.display = "none";
+  modal_playballoon_btn.style.display = "none";
+
   modal_play_heading.innerText = `Level 2`;
   if (!GAME_DATA.user_details.level2_locked) {
     modal_play_body.innerHTML = "";
@@ -42,6 +69,7 @@ function triviaLevel2Clicked() {
 function blackjackLevel1Clicked() {
   modal_playblackjack_btn.style.display = "none";
   modal_playtrivia_btn.style.display = "none";
+  modal_playballoon_btn.style.display = "none";
   modal_playblackjack_btn.style.display = "inline-block";
   modal_play_heading.innerText = event.target.innerText;
   modal_play_body.innerHTML = ``;
@@ -84,11 +112,11 @@ function setMainPageClickEventListener(event) {
     ) {
       triviaLevel2Clicked();
     } else if (
-      event.target.getAttribute("class") === "start-fruit level-circle" ||
+      event.target.getAttribute("class") === "start-balloon level-circle" ||
       event.target.parentNode.getAttribute("class") ===
-        "start-fruit level-circle"
+        "start-balloon level-circle"
     ) {
-      fruitShootingLevel3Clicked();
+      balloonLevel3Clicked();
     }
   }
 }
@@ -102,6 +130,7 @@ function init() {
   modal_play_close = modal_play.querySelector(".modal-close");
   modal_playblackjack_btn = modal_play.querySelector(".play-blackjack-btn");
   modal_playtrivia_btn = modal_play.querySelector(".play-trivia-btn");
+  modal_playballoon_btn = modal_play.querySelector(".play-balloon-btn");
 
   modal_instructions = main_page.querySelector(".modal-instructions");
   instructions = modal_instructions.querySelector(".instructions");
@@ -110,6 +139,7 @@ function init() {
 
   blackjack_game = document.querySelector("#blackjack-game");
   trivia_game = document.querySelector("#trivia-game");
+  balloon_game = document.querySelector("#balloon-game");
 
   modal_play_close.addEventListener("click", function() {
     EVTMainPage.emit("hideModal");
@@ -127,12 +157,17 @@ function init() {
     if (!GAME_DATA.user_details.level2_locked) {
       level2Unlocked();
     }
+    if (!GAME_DATA.user_details.level3_locked) {
+      level3Unlocked();
+    }
   }
 
   modal_playblackjack_btn.addEventListener("click", playBlackJack);
   modal_playtrivia_btn.addEventListener("click", playTrivia);
+  modal_playballoon_btn.addEventListener("click", playBalloon);
 }
 
+EVTMainPage.on("level3Unlocked", level3Unlocked);
 EVTMainPage.on("level2Unlocked", level2Unlocked);
 
 EVTMainPage.on("init", init);
@@ -146,7 +181,9 @@ let modal_play_close;
 let modal_play_btn;
 let modal_playblackjack_btn;
 let modal_playtrivia_btn;
+let modal_playballoon_btn;
 let modal_instructions, instructions, form, modal_instructions_form_btn;
 let blackjack_game;
 let trivia_game;
+let balloon_game;
 let total_wins_needed = 3;

@@ -1,13 +1,15 @@
+function level2Unlocked() {
+  next_level_btn.style.display = "inline-block";
+}
 function setBlackJackWinsText() {
   let message = GAME_DATA.blackjack.wins > 1 ? "games" : "game";
   span_wins.innerText = GAME_DATA.blackjack.wins + " " + message;
   start_btn.style.pointerEvents = "auto";
   start_btn.style.opacity = "1";
-  start_btn.innerText = "Start Game";
+  next_level_btn.style.display = "none";
 }
 function startButtonClicked(event) {
   disableButton(start_btn);
-  event.target.innerText = "Game has started";
   EVTBlackjack.emit("startButtonClicked");
 }
 function hitButtonClicked(event) {
@@ -29,10 +31,10 @@ function restartButtonClicked(event) {
   disableButton(hit_btn);
   start_btn.style.pointerEvents = "none";
   start_btn.style.opacity = "0.7";
-  start_btn.innerText = "Game has started";
   EVTBlackjack.emit("restartButtonClicked");
 }
 function nextLevelButtonClicked(event) {
+  EVTBlackjack.emit("nextLevelButtonClicked");
   blackjack_game.style.left = "-100%;";
   trivia_game.style.left = "0";
 }
@@ -53,7 +55,6 @@ function backButtonClicked() {
   enableButton(start_btn);
   disableButton(hit_btn);
   disableButton(stand_btn);
-  start_btn.innerText = "Start Game";
   blackjack_game.style.left = "100%";
   main_page.style.left = "0";
 }
@@ -80,7 +81,7 @@ function init() {
   back_btn = blackjack_game.querySelector(".go-back-main-page");
   span_wins = blackjack_game.querySelector(".wins");
   trivia_game = document.querySelector("#trivia-game");
-  next_round_btn = document.querySelector("#next-round-btn");
+  //next_round_btn = blackjack_game.querySelector("#next-round-btn");
   main_page = document.querySelector("#main-page");
 
   disableButton(stand_btn);
@@ -96,11 +97,13 @@ function init() {
   stand_btn.addEventListener("click", standButtonClicked);
   restart_btn.addEventListener("click", restartButtonClicked);
   next_level_btn.addEventListener("click", nextLevelButtonClicked);
-  next_round_btn.addEventListener("click", nextRoundButtonClicked);
+  //next_round_btn.addEventListener("click", nextRoundButtonClicked);
   back_btn.addEventListener("click", backButtonClicked);
 
   setBlackJackWinsText();
 }
+
+EVTBlackjack.on("level2Unlocked", level2Unlocked);
 
 EVTBlackjack.on("setBlackJackWinsText", setBlackJackWinsText);
 

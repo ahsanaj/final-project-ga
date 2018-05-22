@@ -199,7 +199,7 @@ h6 {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/f24f68ccbb286e54bf2ba3b57f0856de.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/61b5a07b81ce4586b379d0ec71e71ab3.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     overflow: scroll;
@@ -304,7 +304,7 @@ h6 {
 }
 
 #main-page .champion {
-    background: url(/bc169b3bcaaea85180855a67ce1163fe.png) no-repeat;
+    background: url(/aa4fed349646a7b609e0b2205e213ae0.png) no-repeat;
     background-size: cover;
     background-color: transparent !important;
     background-size: 120px;

@@ -49,6 +49,8 @@ function init() {
   modal_instructions_result = modal_instructions.querySelector(".instructions");
 }
 
+EVTBlackjack.on("nextLevelButtonClicked", hideModal);
+
 EVTBlackjack.on("level2Unlocked", level2Unlocked);
 
 EVTBlackjack.on("blackjackInstructionsButtonClicked", function(message) {

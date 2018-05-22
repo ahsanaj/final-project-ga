@@ -1,3 +1,6 @@
+function startButtonClicked() {
+  restartGame();
+}
 function backButtonClicked() {
   restartGame();
 }
@@ -286,6 +289,9 @@ function drawCards(cards, container) {
 function init() {
   wins = GAME_DATA.blackjack.wins;
 }
+
+EVTBlackjack.on("startButtonClicked", startButtonClicked);
+
 EVTBlackjack.on("backButtonClicked", backButtonClicked);
 
 EVTBlackjack.on("gameFinished", gameFinished);
