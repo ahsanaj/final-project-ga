@@ -21,18 +21,18 @@ function level2Unlocked() {
 }
 function fruitShootingLevel3Clicked() {
   modal_play_heading.innerText = `Level 3`;
-  modal_play_body.innerHTML = `This level is locked. <br><br>Please complete Level 2 to unlock this level.`;
+  modal_play_body.innerHTML = `This level is still being developed. <br><br>Please check again later.`;
   EVTMainPage.emit("showModal");
 }
 function triviaLevel2Clicked() {
   modal_play_heading.innerText = `Level 2`;
-  if (!GAME_DATA.level2_locked) {
+  if (!GAME_DATA.user_details.level2_locked) {
     modal_play_body.innerHTML = "";
     modal_playtrivia_btn.style.display = "inline-block";
   } else {
-    let message = GAME_DATA.blackjack_wins > 1 ? "games" : "game";
-    modal_play_body.innerHTML = `This level is locked. <br><br>Please complete Level 1 by winning ${total_wins_needed -
-      GAME_DATA.blackjack_wins} blackjack ${message} to unlock this level.`;
+    let message = GAME_DATA.blackjack.wins > 1 ? "game" : "games";
+    modal_play_body.innerHTML = `This level is locked. <br><br>Win ${total_wins_needed -
+      GAME_DATA.blackjack.wins} blackjack ${message} to unlock this level.`;
     modal_playtrivia_btn.style.display = "none";
   }
   EVTMainPage.emit("showModal");

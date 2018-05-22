@@ -1,6 +1,5 @@
 function level2Unlocked() {
-  const next_level_btn = modal_game.querySelector("#next-level-btn");
-  next_level_btn.style.display = "inline-block";
+  modal_game_result.innerText = "Good job!, Level 2 is now unlocked";
 }
 function showModal() {
   modal_game.style.display = "block";

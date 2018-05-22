@@ -1,6 +1,9 @@
 function setBlackJackWinsText() {
   let message = GAME_DATA.blackjack.wins > 1 ? "games" : "game";
   span_wins.innerText = GAME_DATA.blackjack.wins + " " + message;
+  start_btn.style.pointerEvents = "auto";
+  start_btn.style.opacity = "1";
+  start_btn.innerText = "Start Game";
 }
 function startButtonClicked(event) {
   disableButton(start_btn);
@@ -24,6 +27,9 @@ function nextRoundButtonClicked() {
 function restartButtonClicked(event) {
   disableButton(stand_btn);
   disableButton(hit_btn);
+  start_btn.style.pointerEvents = "none";
+  start_btn.style.opacity = "0.7";
+  start_btn.innerText = "Game has started";
   EVTBlackjack.emit("restartButtonClicked");
 }
 function nextLevelButtonClicked(event) {
@@ -90,6 +96,7 @@ function init() {
 
   setBlackJackWinsText();
 }
+
 EVTBlackjack.on("setBlackJackWinsText", setBlackJackWinsText);
 
 EVTBlackjack.on("playerInitialCardsLoaded", function() {

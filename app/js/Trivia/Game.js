@@ -1,3 +1,74 @@
+function answerSelected(event, current) {
+  clearInterval(interval);
+  const selectedAnswer = event.target.innerText;
+  const next_question_btn = event.target.parentNode.parentNode.querySelector(
+    "button[rel='js-next']"
+  );
+  next_question_btn.style.display = "inline-block";
+  //debugger;
+  const questionIndex = event.target.parentNode.parentNode.parentNode.getAttribute(
+    "data-value"
+  );
+
+  if (event.target.innerText === questionsList[questionIndex].correct_answer) {
+    total_score += 1;
+    const trivia_score = document.querySelector(".trivia-score");
+    trivia_score.innerHTML = `You got ${total_score} out of ${
+      questionsList.length
+    } correct`;
+  }
+  event.target.style.backgroundColor = "#ff7979";
+  event.target.style.color = "#b10000";
+  event.target.style.borderColor = "#b10000";
+
+  const allButtons = Array.from(current.querySelectorAll(".btn-trivia-game"));
+  for (let i = 0; i < allButtons.length; i++) {
+    if (
+      allButtons[i].innerText === questionsList[questionIndex].correct_answer
+    ) {
+      allButtons[i].style.backgroundColor = "#88e58a";
+      allButtons[i].style.color = "green";
+      allButtons[i].style.borderColor = "green";
+    }
+    allButtons[i].style.pointerEvents = "none";
+  }
+}
+function playAgainButtonClicked(current) {
+  EVTTrivia.emit("playTriviaAgainClicked");
+  trivia_main.style.left = "0";
+  current.style.left = "100%";
+  setTimeout(() => {
+    trivia_questions.innerHTML = "";
+  }, 1000);
+  total_score = 0;
+  current_question = 0;
+}
+function nextButtonClicked(current, next) {
+  current.style.left = "-100%";
+  next.style.left = "0";
+  current_question = current_question + 1;
+
+  startTimer();
+
+  const allButtons = Array.from(current.querySelectorAll(".btn-trivia-game"));
+  for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].style.pointerEvents = "auto";
+    allButtons[i].style.backgroundColor = "transparent";
+    allButtons[i].style.color = "white";
+    allButtons[i].style.borderColor = "white";
+  }
+}
+function exitButtonClicked(current) {
+  clearInterval(interval);
+  current.style.left = "100%";
+  trivia_main.style.left = "0";
+  setTimeout(() => {
+    trivia_questions.innerHTML = "";
+  }, 1000);
+  total_score = 0;
+  current_question = 0;
+  EVTTrivia.emit("exitButtonClicked");
+}
 function triviaGameContainerClicked(event) {
   const current_question_container = trivia_game.querySelector(
     `.trivia[data-value='${current_question}']`
@@ -8,85 +79,21 @@ function triviaGameContainerClicked(event) {
 
   // Exit button clicked
   if (event.target.getAttribute("class") === "btn exit-btn") {
-    current_question_container.style.left = "100%";
-    trivia_main.style.left = "0";
-    setTimeout(() => {
-      trivia_questions.innerHTML = "";
-    }, 1000);
-    total_score = 0;
-    current_question = 0;
+    exitButtonClicked(current_question_container);
   }
   // Next button clicked
   if (event.target.getAttribute("rel") === "js-next") {
-    current_question_container.style.left = "-100%";
-    next_question_container.style.left = "0";
-    current_question = current_question + 1;
-
-    startTimer();
-
-    const allButtons = Array.from(
-      current_question_container.querySelectorAll(".btn-trivia-game")
-    );
-    for (let i = 0; i < allButtons.length; i++) {
-      allButtons[i].style.pointerEvents = "auto";
-      allButtons[i].style.backgroundColor = "transparent";
-      allButtons[i].style.color = "white";
-      allButtons[i].style.borderColor = "white";
-    }
+    nextButtonClicked(current_question_container, next_question_container);
   }
 
   // Play again clicked
   if (event.target.getAttribute("rel") === "js-play-trivia-again") {
-    EVTTrivia.emit("playTriviaAgainClicked");
-    trivia_main.style.left = "0";
-    current_question_container.style.left = "100%";
-    setTimeout(() => {
-      trivia_questions.innerHTML = "";
-    }, 1000);
-    total_score = 0;
-    current_question = 0;
+    playAgainButtonClicked(current_question_container);
   }
 
   // Answer clicked
   if (event.target.getAttribute("class") === "btn btn-trivia-game") {
-    clearInterval(interval);
-    const selectedAnswer = event.target.innerText;
-    const next_question_btn = event.target.parentNode.parentNode.querySelector(
-      "button[rel='js-next']"
-    );
-    next_question_btn.style.display = "inline-block";
-    //debugger;
-    const questionIndex = event.target.parentNode.parentNode.parentNode.getAttribute(
-      "data-value"
-    );
-
-    if (
-      event.target.innerText === questionsList[questionIndex].correct_answer
-    ) {
-      total_score += 1;
-      const trivia_score = document.querySelector(".trivia-score");
-      trivia_score.innerHTML = `You got ${total_score} out of ${
-        questionsList.length
-      } correct`;
-    }
-
-    event.target.style.backgroundColor = "#ff7979";
-    event.target.style.color = "#b10000";
-    event.target.style.borderColor = "#b10000";
-
-    const allButtons = Array.from(
-      current_question_container.querySelectorAll(".btn-trivia-game")
-    );
-    for (let i = 0; i < allButtons.length; i++) {
-      if (
-        allButtons[i].innerText === questionsList[questionIndex].correct_answer
-      ) {
-        allButtons[i].style.backgroundColor = "#88e58a";
-        allButtons[i].style.color = "green";
-        allButtons[i].style.borderColor = "green";
-      }
-      allButtons[i].style.pointerEvents = "none";
-    }
+    answerSelected(event, current_question_container);
   }
 }
 function startTimer() {
