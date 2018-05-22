@@ -80,7 +80,9 @@ function checkFinalScore() {
 
 function checkPlayerScore() {
   if (player_score > 21) {
-    EVTBlackjack.emit("gameFinished", "Busted!");
+    setTimeout(function() {
+      EVTBlackjack.emit("gameFinished", "Busted!");
+    }, 1000);
   }
 }
 

@@ -50,8 +50,9 @@ function modalCloseInstructionsClicked() {
 }
 function backButtonClicked() {
   EVTBlackjack.emit("backButtonClicked");
-  start_btn.style.pointerEvents = "auto";
-  start_btn.style.opacity = "1";
+  enableButton(start_btn);
+  disableButton(hit_btn);
+  disableButton(stand_btn);
   start_btn.innerText = "Start Game";
   blackjack_game.style.left = "100%";
   main_page.style.left = "0";

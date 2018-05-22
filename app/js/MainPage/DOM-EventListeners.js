@@ -25,6 +25,8 @@ function fruitShootingLevel3Clicked() {
   EVTMainPage.emit("showModal");
 }
 function triviaLevel2Clicked() {
+  modal_playblackjack_btn.style.display = "none";
+  modal_playtrivia_btn.style.display = "none";
   modal_play_heading.innerText = `Level 2`;
   if (!GAME_DATA.user_details.level2_locked) {
     modal_play_body.innerHTML = "";
@@ -38,6 +40,8 @@ function triviaLevel2Clicked() {
   EVTMainPage.emit("showModal");
 }
 function blackjackLevel1Clicked() {
+  modal_playblackjack_btn.style.display = "none";
+  modal_playtrivia_btn.style.display = "none";
   modal_playblackjack_btn.style.display = "inline-block";
   modal_play_heading.innerText = event.target.innerText;
   modal_play_body.innerHTML = ``;
@@ -67,8 +71,6 @@ function displayForm() {
 
 function setMainPageClickEventListener(event) {
   if (event.target.nodeName === "DIV" || event.target.nodeName === "SPAN") {
-    modal_playblackjack_btn.style.display = "none";
-    modal_playtrivia_btn.style.display = "none";
     if (
       event.target.getAttribute("class") === "start-blackjack level-circle" ||
       event.target.parentNode.getAttribute("class") ===

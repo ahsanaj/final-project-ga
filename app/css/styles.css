@@ -473,7 +473,7 @@ section#player {
     height: 150px;
     position: absolute;
     left: 0;
-    transition: all 0.3s ease-out;
+    transition: all 0.8s ease-out;
     border-radius: 9px;
 }
 
