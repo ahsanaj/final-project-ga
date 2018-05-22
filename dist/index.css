@@ -214,6 +214,13 @@ h6 {
     font-family: 'Kavivanar', monospace;
 }
 
+#main-page .user-welcome {
+    font-size: 2em;
+    text-align: center;
+    color: #cfffff;
+    font-family: 'Kavivanar', monospace;
+}
+
 #main-page .help {
     display: block;
     width: 100%;
@@ -314,6 +321,74 @@ h6 {
     color: #bce9e8;
     top: 30%;
     width: 500px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#main-page .play-blackjack-btn,
+#main-page .play-trivia-btn {
+    display: none;
+}
+
+#main-page .modal-instructions .modal-content {
+    top: 20%;
+    padding: 0;
+    opacity: 1;
+}
+
+#main-page .modal-instructions .modal-content h2 {
+    margin-top: 0;
+}
+
+#main-page .modal-instructions .modal-body {
+    position: relative;
+    width: 200%;
+}
+
+#main-page .modal-instructions .modal-body::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#main-page .modal-instructions .instructions {
+    position: relative;
+    left: 0;
+    transition: left 1s ease;
+    float: left;
+    width: 50%;
+    padding: 10px 20px;
+}
+
+#main-page .modal-instructions .instructions p {
+    text-align: left;
+}
+
+#main-page .modal-instructions .form {
+    position: relative;
+    left: 100%;
+    transition: left 1s ease;
+    width: 50%;
+    float: left;
+    padding: 20px;
+}
+
+#main-page .modal-instructions .form label {
+    display: block;
+    margin: 0 auto 5px auto;
+    width: 70%;
+    text-align: left;
+}
+
+#main-page .modal-instructions .form input[type='text'],
+#main-page .modal-instructions .form input[type='email'] {
+    display: block;
+    width: 70%;
+    margin: 0 auto 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1em;
 }
 
 
@@ -430,6 +505,7 @@ section#player {
 
 #blackjack-game #next-level-btn {
     display: none;
+    margin-left: 10px;
 }
 
 #blackjack-game .modal-content {

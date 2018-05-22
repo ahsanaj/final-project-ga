@@ -13,6 +13,7 @@
     <!--Main Page-->
     <div id="main-page">
         <h1>The Game Arcade</h1>
+        <h2 class='user-welcome'></h2>
         <section>
             <div class="container">
 
@@ -42,13 +43,51 @@
                 </div>
             </div>
         </section>
-        <div class="modal">
+        <div class="modal modal-play">
             <div class="modal-content">
                 <span class="modal-close">x</span>
                 <h2 class='modal-heading'></h2>
-                <p class='modal-instructions'>
+                <p class='modal-body'>
                 </p>
-                <button class="btn btn-default">Play</button>
+                <button class="btn btn-default play-blackjack-btn">Play</button>
+                <button class="btn btn-default play-trivia-btn">Play</button>
+            </div>
+        </div>
+        <div class="modal modal-instructions">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class='instructions'>
+                        <h2 class='modal-heading'>Welcome to <em>The Game Arcade</em></h2>
+                        <p>
+                            The arcade consists of three levels. The goal is to complete all three levels to become the ultimate champion. Each level will test your skills.
+                        </p>
+                        <p>
+                            <strong>Level 1</strong> is a Blackjack game and instructions on how to play the game can be found once the game is loaded. The game mainly focuses on your decision making, win 3 games and you can then proceed to Level 2.
+                        </p>
+                        <p>
+                            <strong>Level 2</strong> is a Trivia game. You choose a category and difficulty level before the game is started. The game consists of 10 different questions and you will have 20 seconds to answer each question. The game mainly
+                            focuses on how good your knowledge is, answer 6 questions and you can then proceed to Level 3.
+                        </p>
+                        <p>
+                            <strong>Level 3</strong> is coming soon.
+                        </p>
+                        <button class='btn btn-form' type="button">Next</button>
+                    </div>
+                    <div class='form'>
+                        <h2 class='modal-heading'>Your details</h2>
+                        <form>
+                            <div class='form-group'>
+                                <label>Name</label>
+                                <input type='text' id="name" required>
+                            </div>
+                            <div class='form-group'>
+                                <label>Email</label>
+                                <input type='email' id='email' required>
+                            </div>
+                            <button class='btn' type='submit'>Enter</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

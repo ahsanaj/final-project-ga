@@ -218,11 +218,12 @@ function displayQuestions(questions) {
       questions.length
     } class="trivia">
                     <div class="container">
+                    <span class="btn exit-btn">Exit</span>
                         <div class="question">
                         <h1>Well done, round has completed</h1>
-                            <h3 class="trivia-score"> Your got 0 out of ${
+                            <h2 class="trivia-score"> Your got 0 out of ${
                               questions.length
-                            } correct.</h3>
+                            } correct.</h2>
                         </div>
                         <button class="btn btn-default" rel="js-play-trivia-again">Play Again</button>
                     </div>

@@ -1,3 +1,6 @@
+function backButtonClicked() {
+  restartGame();
+}
 function gameFinished() {
   EVTBlackjack.emit("setBlackJackWinsText");
   if (
@@ -281,6 +284,7 @@ function drawCards(cards, container) {
 function init() {
   wins = GAME_DATA.blackjack.wins;
 }
+EVTBlackjack.on("backButtonClicked", backButtonClicked);
 
 EVTBlackjack.on("gameFinished", gameFinished);
 
