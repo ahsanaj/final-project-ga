@@ -1,6 +1,9 @@
 const howler = require("howler");
 
 function startGame() {
+  document.body.focus();
+  GAME_DATA.user_details.current_level = 3;
+  EVTGlobal.emit("saveGame");
   this.style.display = "none";
   heading.style.display = "none";
   displayBalloonsOnScreen();
@@ -68,13 +71,14 @@ function balloonPop(balloon, value) {
     }
     score.innerText = "Score: " + SCORE;
     if (SCORE > score_needed_to_win && !GAME_DATA.user_details.game_completed) {
+      victory.play();
       EVTBalloon.emit("gameFinished");
     }
   }, 300);
 }
 
 function keyDown(event) {
-  //console.log(event.keyCode);
+  console.log(event.keyCode);
   if (GAME_DATA.user_details.current_level === 3) {
     const balloons = balloon_game.querySelectorAll(".balloon");
     //console.log(balloons);
@@ -130,7 +134,6 @@ function randomIntFromInterval(min, max) {
 }
 
 function init() {
-  main_page = document.querySelector("#main-page");
   blackjack_game = document.querySelector("#blackjack-game");
   trivia_game = document.querySelector("#trivia-game");
   balloon_game = document.querySelector("#balloon-game");
@@ -165,7 +168,7 @@ let SCORE = 0,
   play_again_btn,
   start_balloon_btn,
   heading,
-  score_needed_to_win = 50;
+  score_needed_to_win = 500;
 
 const values = [
   { color: "hsl(59,30%,52%)", value: 1, transition: 15 },
@@ -183,7 +186,7 @@ const values = [
     transition: 3.5
   }
 ];
-
+const victory = new Howl({ src: [require("../../sounds/victory.mp3")] });
 const keyCodes = [
   {
     code: 65,
