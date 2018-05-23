@@ -206,6 +206,8 @@ h6 {
     overflow: scroll;
     transition: left 1s ease;
     left: 0;
+    top: 0;
+    overflow: hidden;
 }
 
 #main-page h1 {
@@ -407,6 +409,8 @@ h6 {
     opacity: 1;
     transition: all 1s ease;
     left: 100%;
+    top: 0;
+    overflow: hidden;
 }
 
 #blackjack-game .blackjack-instructions {
@@ -541,6 +545,8 @@ section#player {
     left: 100%;
     opacity: 1;
     transition: all 1s ease;
+    top: 0;
+    overflow: hidden;
 }
 
 #trivia-main {
@@ -715,7 +721,8 @@ section#player {
     left: 100%;
     opacity: 1;
     transition: all 1s ease;
-    z-index: 99;
+    top: 0;
+    overflow: hidden;
 }
 
 #balloon-game .balloon {

@@ -205,6 +205,8 @@ h6 {
     overflow: scroll;
     transition: left 1s ease;
     left: 0;
+    top: 0;
+    overflow: hidden;
 }
 
 #main-page h1 {
@@ -325,6 +327,10 @@ h6 {
     overflow-x: hidden;
 }
 
+#main-page .modal-content p {
+    text-align: justify;
+}
+
 #main-page .play-blackjack-btn,
 #main-page .play-trivia-btn {
     display: none;
@@ -402,6 +408,8 @@ h6 {
     opacity: 1;
     transition: all 1s ease;
     left: 100%;
+    top: 0;
+    overflow: hidden;
 }
 
 #blackjack-game .blackjack-instructions {
@@ -536,6 +544,8 @@ section#player {
     left: 100%;
     opacity: 1;
     transition: all 1s ease;
+    top: 0;
+    overflow: hidden;
 }
 
 #trivia-main {
@@ -710,7 +720,8 @@ section#player {
     left: 100%;
     opacity: 1;
     transition: all 1s ease;
-    z-index: 99;
+    top: 0;
+    overflow: hidden;
 }
 
 #balloon-game .balloon {
@@ -763,7 +774,11 @@ section#player {
     background: rgba(0, 0, 0, 0.2);
 }
 
-#balloon-game h1 {
+#balloon-game .heading {
+    color: #9e7800;
+}
+
+#balloon-game .score {
     color: #c12626;
     font-size: 2em;
     padding-right: 20px;
