@@ -11,7 +11,7 @@ require("../js/Global/index.js");
 require("../js/MainPage/index.js");
 require("../js/Blackjack/index.js");
 require("../js/Trivia/index.js");
-require("../js/Shooting/index.js");
+require("../js/Balloons/index.js");
 
 window.addEventListener("DOMContentLoaded", function() {
   EVTGlobal.emit("init");

@@ -207,13 +207,25 @@
         </div>
     </div>
     <!--Balloon Game-->
-    <div id="balloon-game">
+    <div id="balloon-game" tabindex="0">
         <header>
             <h1 class="score">Score: 0</h1>
             <span class="btn go-back-main-page">Home</span>
         </header>
-        <div class="balloons-container"></div>
+        <div class="balloons-container">
 
+        </div>
+        <div class="modal modal-play">
+            <div class="modal-content">
+                <span class="modal-close">x</span>
+                <h2 class='modal-heading'>Level Completed</h2>
+                <p class='modal-body'>
+                    <h2>You are a true champion now.</h2>
+                    <img src="<%= require('./img/champion.png') %>" />
+                </p>
+                <button class="btn btn-default play-balloon-btn btn-hidden">Play Again</button>
+            </div>
+        </div>
     </div>
 </body>
 

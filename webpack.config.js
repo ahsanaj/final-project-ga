@@ -23,6 +23,10 @@ const config = {
         use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
+        test: /\.mp3$/,
+        loader: "file-loader"
+      },
+      {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           "file-loader",
