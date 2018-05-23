@@ -326,6 +326,10 @@ h6 {
     overflow-x: hidden;
 }
 
+#main-page .modal-content p {
+    text-align: justify;
+}
+
 #main-page .play-blackjack-btn,
 #main-page .play-trivia-btn {
     display: none;
@@ -764,7 +768,11 @@ section#player {
     background: rgba(0, 0, 0, 0.2);
 }
 
-#balloon-game h1 {
+#balloon-game .heading {
+    color: #9e7800;
+}
+
+#balloon-game .score {
     color: #c12626;
     font-size: 2em;
     padding-right: 20px;

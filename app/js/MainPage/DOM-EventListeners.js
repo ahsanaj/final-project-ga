@@ -24,7 +24,6 @@ function playBalloon() {
   balloon_game.style.left = "0";
   GAME_DATA.user_details.current_level = 3;
   EVTGlobal.emit("saveGame");
-  EVTBalloon.emit("startGame");
 }
 function level2Unlocked() {
   const level2Div = main_page.querySelector(".start-trivia");
@@ -41,10 +40,10 @@ function balloonLevel3Clicked() {
   modal_play_heading.innerText = `Level 3`;
 
   if (!GAME_DATA.user_details.level3_locked) {
-    modal_play_body.innerHTML = "";
+    modal_play_body.innerHTML = `<p><strong>Level 3</strong> is a Balloon shooting game. You press the key that matches the alphabet on the balloon to pop it. Every balloon has different score value, faster the balloon, higher the score will be. Shoot the fastest balloon first to score the most points.</p><p>Plesae have your sound turned on for the best experience.</p>`;
     modal_playballoon_btn.style.display = "inline-block";
   } else {
-    modal_play_body.innerHTML = `This level is locked. <br><br>Answer 6 questions correct in Trivia to unlock this level.`;
+    modal_play_body.innerHTML = `This level is locked. <br><br>Please complete Level 2 to unlock this level.`;
     modal_playballoon_btn.style.display = "none";
   }
   EVTMainPage.emit("showModal");
@@ -56,7 +55,7 @@ function triviaLevel2Clicked() {
 
   modal_play_heading.innerText = `Level 2`;
   if (!GAME_DATA.user_details.level2_locked) {
-    modal_play_body.innerHTML = "";
+    modal_play_body.innerHTML = `<p><strong>Level 2</strong> is a Trivia game. You choose a category and difficulty level before the game is started. The game consists of 10 different questions and you will have 20 seconds to answer each question. The game mainly focuses on how good your knowledge is, answer 6 questions and you can then proceed to Level 3.</p >`;
     modal_playtrivia_btn.style.display = "inline-block";
   } else {
     let message = GAME_DATA.blackjack.wins > 1 ? "game" : "games";
@@ -72,7 +71,8 @@ function blackjackLevel1Clicked() {
   modal_playballoon_btn.style.display = "none";
   modal_playblackjack_btn.style.display = "inline-block";
   modal_play_heading.innerText = event.target.innerText;
-  modal_play_body.innerHTML = ``;
+  modal_play_body.innerHTML = `<strong>Level 1</strong> is a Blackjack game and instructions on how to play the game can be found once the game is loaded.The game mainly focuses on your decision making, win 3 games and you can then proceed to Level 2.
+                        </p >`;
   EVTMainPage.emit("showModal");
 }
 function userExists() {

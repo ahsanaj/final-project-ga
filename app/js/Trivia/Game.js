@@ -34,7 +34,7 @@ function answerSelected(event, current) {
     "data-value"
   );
 
-  if (event.target.innerText === questionsList[questionIndex].correct_answer) {
+  if (event.target.innerHTML === questionsList[questionIndex].correct_answer) {
     total_score += 1;
   }
   event.target.style.backgroundColor = "#ff7979";
@@ -44,7 +44,7 @@ function answerSelected(event, current) {
   const allButtons = Array.from(current.querySelectorAll(".btn-trivia-game"));
   for (let i = 0; i < allButtons.length; i++) {
     if (
-      allButtons[i].innerText === questionsList[questionIndex].correct_answer
+      allButtons[i].innerHTML === questionsList[questionIndex].correct_answer
     ) {
       allButtons[i].style.backgroundColor = "#88e58a";
       allButtons[i].style.color = "green";

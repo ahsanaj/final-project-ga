@@ -1,5 +1,10 @@
 const howler = require("howler");
 
+function startGame() {
+  this.style.display = "none";
+  heading.style.display = "none";
+  displayBalloonsOnScreen();
+}
 function restartGame() {
   EVTBalloon.emit("restartGame");
   score.innerText = "Score: " + 0;
@@ -7,13 +12,13 @@ function restartGame() {
 }
 
 function gameFinished() {
-  if (!GAME_DATA.user_details.game_completed) {
-    balloons_container.innerHTML = "";
-    clearTimeout(interval);
-    GAME_DATA.user_details.game_completed = true;
-    SCORE = 0;
-  } else {
-  }
+  balloons_container.innerHTML = "";
+  clearTimeout(interval);
+  GAME_DATA.user_details.game_completed = true;
+  SCORE = 0;
+  EVTGlobal.emit("saveGame");
+  start_balloon_btn.style.display = "inline-block";
+  heading.style.display = "block";
 }
 
 function backButtonClicked() {
@@ -23,6 +28,10 @@ function backButtonClicked() {
   trivia_game.style.left = "100%";
   blackjack_game.style.left = "100%";
   main_page.style.left = "0";
+  start_balloon_btn.style.display = "inline-block";
+  heading.style.display = "block";
+  score.innerText = "Score: " + 0;
+  SCORE = 0;
 }
 
 function Balloon(data, left) {
@@ -50,27 +59,34 @@ function Balloon(data, left) {
 function balloonPop(balloon, value) {
   setTimeout(function() {
     balloon.style.transform = "scale(1.4)";
+    SCORE += Number(value);
   }, 50);
 
   setTimeout(function() {
-    SCORE += Number(value);
-    balloons_container.removeChild(balloon);
+    if (balloon) {
+      balloons_container.removeChild(balloon);
+    }
     score.innerText = "Score: " + SCORE;
+    if (SCORE > score_needed_to_win && !GAME_DATA.user_details.game_completed) {
+      EVTBalloon.emit("gameFinished");
+    }
   }, 300);
 }
 
 function keyDown(event) {
   //console.log(event.keyCode);
-  const balloons = balloon_game.querySelectorAll(".balloon");
-  //console.log(balloons);
-  for (let i = 0; i < balloons.length; i++) {
-    const balloon = balloons[i];
-    //console.log(event.keyCode, balloon.getAttribute("data-value"));
-    if (event.keyCode === Number(balloon.getAttribute("data-code"))) {
-      const key = keyCodes.filter(item => item.code === event.keyCode);
-      key[0].sound.play();
-      const value = balloon.getAttribute("data-value");
-      balloonPop(balloon, value);
+  if (GAME_DATA.user_details.current_level === 3) {
+    const balloons = balloon_game.querySelectorAll(".balloon");
+    //console.log(balloons);
+    for (let i = 0; i < balloons.length; i++) {
+      const balloon = balloons[i];
+      //console.log(event.keyCode, balloon.getAttribute("data-value"));
+      if (event.keyCode === Number(balloon.getAttribute("data-code"))) {
+        const key = keyCodes.filter(item => item.code === event.keyCode);
+        key[0].sound.play();
+        const value = balloon.getAttribute("data-value");
+        balloonPop(balloon, value);
+      }
     }
   }
   //balloonPop(balloon, data, event);
@@ -94,17 +110,18 @@ function createBalloon(balloonInstace, data) {
 }
 
 function displayBalloonsOnScreen() {
-  balloons_container.focus();
   for (let i = 0; i < 10; i++) {
     const left = randomIntFromInterval(200, window.innerWidth - 300);
     const data = values[i];
     const balloonInstance = new Balloon(data, left);
     createBalloon(balloonInstance, data);
   }
-  if (SCORE <= 2000) {
+  if (GAME_DATA.user_details.game_completed) {
     interval = setTimeout(displayBalloonsOnScreen, 3000);
   } else {
-    EVTBalloon.emit("gameFinished");
+    if (SCORE <= score_needed_to_win) {
+      interval = setTimeout(displayBalloonsOnScreen, 3000);
+    }
   }
 }
 
@@ -121,16 +138,18 @@ function init() {
   score = balloon_game.querySelector(".score");
   back_btn = balloon_game.querySelector(".go-back-main-page");
   play_again_btn = balloon_game.querySelector(".play-balloon-btn");
+  start_balloon_btn = balloon_game.querySelector("#start-balloon-btn");
+  heading = balloon_game.querySelector(".heading");
 
   back_btn.addEventListener("click", backButtonClicked);
 
-  balloon_game.addEventListener("keydown", keyDown);
+  document.body.addEventListener("keydown", keyDown);
 
   play_again_btn.addEventListener("click", restartGame);
+
+  start_balloon_btn.addEventListener("click", startGame);
 }
 EVTBalloon.on("gameFinished", gameFinished);
-
-EVTBalloon.on("startGame", displayBalloonsOnScreen);
 
 EVTBalloon.on("init", init);
 
@@ -143,7 +162,10 @@ let SCORE = 0,
   main_page,
   score,
   back_btn,
-  play_again_btn;
+  play_again_btn,
+  start_balloon_btn,
+  heading,
+  score_needed_to_win = 50;
 
 const values = [
   { color: "hsl(59,30%,52%)", value: 1, transition: 15 },
