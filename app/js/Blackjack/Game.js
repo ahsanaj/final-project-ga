@@ -7,7 +7,7 @@ function backButtonClicked() {
 function gameFinished() {
   EVTBlackjack.emit("setBlackJackWinsText");
   if (
-    GAME_DATA.blackjack.wins === 3 &&
+    GAME_DATA.blackjack.wins === total_wins_needed &&
     GAME_DATA.user_details.level2_locked === true
   ) {
     GAME_DATA.user_details.level2_locked = false;
@@ -342,7 +342,7 @@ let player_score = 0;
 let computer_score = 0;
 let hidden_imgcode = "";
 let wins = 0;
-let total_wins_needed = 3;
+let total_wins_needed = 2;
 let blackjack_game = document.querySelector("#blackjack-game");
 let player_container = blackjack_game.querySelector("#player");
 let computer_container = blackjack_game.querySelector("#computer");

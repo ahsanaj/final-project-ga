@@ -134,6 +134,7 @@ function randomIntFromInterval(min, max) {
 }
 
 function init() {
+  main_page = document.querySelector("#main-page");
   blackjack_game = document.querySelector("#blackjack-game");
   trivia_game = document.querySelector("#trivia-game");
   balloon_game = document.querySelector("#balloon-game");
@@ -175,15 +176,15 @@ const values = [
   { color: "hsl(245,40%,65%)", value: 2, transition: 14 },
   { color: "hsl(139,30%,50% )", value: 3, transition: 13 },
   { color: "hsl(23,44%,46% )", value: 4, transition: 12 },
-  { color: "hsl(215,30%,50% )", value: 5, transition: 12 },
-  { color: "hsl(100,40%,50% )", value: 8, transition: 11 },
-  { color: "hsl(180,30%,50% )", value: 10, transition: 10 },
-  { color: "hsl(40,30%,50% )", value: 15, transition: 9 },
-  { color: "hsl(10,30%,50% )", value: 20, transition: 8 },
+  { color: "hsl(215,30%,50% )", value: 5, transition: 11 },
+  { color: "hsl(100,40%,50% )", value: 8, transition: 9 },
+  { color: "hsl(180,30%,50% )", value: 10, transition: 8 },
+  { color: "hsl(40,30%,50% )", value: 15, transition: 6 },
+  { color: "hsl(10,30%,50% )", value: 20, transition: 4 },
   {
     color: "linear-gradient(to right, #f83600 0%, #f9d423 100%)",
     value: 50,
-    transition: 3.5
+    transition: 1.5
   }
 ];
 const victory = new Howl({ src: [require("../../sounds/victory.mp3")] });

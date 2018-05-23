@@ -40,7 +40,7 @@ function balloonLevel3Clicked() {
   modal_play_heading.innerText = `Level 3`;
 
   if (!GAME_DATA.user_details.level3_locked) {
-    modal_play_body.innerHTML = `<p><strong>Level 3</strong> is a Balloon shooting game. You press the key that matches the alphabet on the balloon to pop it. Every balloon has different score value, shoot the fastest balloon first to score the most points.</p><p>Score 500 points to complete the level. Please have your sound turned on for the best experience.</p>`;
+    modal_play_body.innerHTML = `<p><strong>Level 3</strong> is a Balloon shooting game which will test your agility. You press the key that matches the alphabet on the balloon to pop it. Every balloon has different score value, pop the fastest balloon first to score the most points.</p><p>Score 500 points to complete the level. Please have your sound turned on for the best experience.</p>`;
     modal_playballoon_btn.style.display = "inline-block";
   } else {
     modal_play_body.innerHTML = `This level is locked. <br><br>Please complete Level 2 to unlock this level.`;
@@ -186,4 +186,4 @@ let modal_instructions, instructions, form, modal_instructions_form_btn;
 let blackjack_game;
 let trivia_game;
 let balloon_game;
-let total_wins_needed = 3;
+let total_wins_needed = 2;
